@@ -1,6 +1,5 @@
 from functools import lru_cache
 
-from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,7 +12,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://redis:6379/0"
     celery_broker_url: str = "redis://redis:6379/1"
 
-    jwt_secret: str = "change-me-in-production"
+    jwt_secret: str = "insecure-development-secret-change-me-in-production-please"
     jwt_algorithm: str = "HS256"
     access_token_ttl_minutes: int = 60
 

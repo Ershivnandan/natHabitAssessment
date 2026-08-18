@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,7 +51,7 @@ async def sweep_overdue_tasks(session: AsyncSession) -> int:
     Each task is flagged with `overdue_notified` so repeated sweeps do not emit
     duplicate notifications. Returns the number of notifications created.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     overdue = await session.scalars(
         select(Task).where(
             Task.due_date.is_not(None),

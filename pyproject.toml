@@ -32,9 +32,13 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Alembic revision files are machine-generated; do not lint them.
+extend-exclude = ["migrations/versions"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "C4"]
+# str + Enum is used intentionally for JSON-serialisable enums on 3.11.
+ignore = ["UP042"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
