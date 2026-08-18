@@ -17,8 +17,8 @@ from app.services.notifications import sweep_overdue_tasks
 async def seeded(session_factory):
     """A user with an assigned, already-overdue task that is not done."""
     async with session_factory() as session:
-        user = User(email="owner@example.com", password_hash="x")
-        assignee = User(email="assignee@example.com", password_hash="x")
+        user = User(email="shiv@example.com", password_hash="x")
+        assignee = User(email="aman@example.com", password_hash="x")
         session.add_all([user, assignee])
         await session.flush()
 
@@ -60,7 +60,7 @@ async def test_overdue_sweep_is_idempotent(session_factory, seeded):
 
 async def test_done_task_is_not_notified(session_factory):
     async with session_factory() as session:
-        user = User(email="u@example.com", password_hash="x")
+        user = User(email="shiv@example.com", password_hash="x")
         session.add(user)
         await session.flush()
         project = Project(name="P", owner_id=user.id)
@@ -91,7 +91,7 @@ async def test_reassignment_enqueues_background_job(auth_client, monkeypatch):
 
     project = (await auth_client.post("/projects", json={"name": "P"})).json()
     other = await auth_client.post(
-        "/auth/signup", json={"email": "target@example.com", "password": "password123"}
+        "/auth/signup", json={"email": "aman@example.com", "password": "shiv@123"}
     )
     target_id = other.json()["id"]
 

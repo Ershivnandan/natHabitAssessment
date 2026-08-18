@@ -48,7 +48,7 @@ async def client(session_factory):
 @pytest_asyncio.fixture
 async def auth_client(client):
     """A client with a registered, logged-in user and bearer token applied."""
-    creds = {"email": "alice@example.com", "password": "password123"}
+    creds = {"email": "shiv@example.com", "password": "shiv@123"}
     await client.post("/auth/signup", json=creds)
     resp = await client.post("/auth/login", json=creds)
     token = resp.json()["access_token"]
